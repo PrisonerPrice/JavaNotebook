@@ -79,6 +79,23 @@ public class RegularExpressions {
         // * Occurs zero or more time, eg X* Finds no or several letter X; eg .* finds any character sequence
         //print(TAG_QUANTIFIER, "q*");
         //print(TAG_QUANTIFIER, ".*");
+
+        // + Occurs one or more time
+        //print(TAG_QUANTIFIER, "q+");
+        //print(TAG_QUANTIFIER, ".+");
+
+        // ? Occurs zero or one time
+        //print(TAG_QUANTIFIER, "q?");
+        //print(TAG_QUANTIFIER, ".?");
+
+        // {X} Occurs X number of times, eg \d{3} 3digits, eg .{3} 3chars
+        //print(TAG_QUANTIFIER, "\\d{3}");
+        //print(TAG_QUANTIFIER, ".{3}");
+
+        // {X, Y} Occurs between X - Y times
+
+        // Quantifier?, ? makes the regex stop at the first match
+        //print(TAG_QUANTIFIER, ".{2}?");
     }
 
     public static void print(String tag, String regex) {
