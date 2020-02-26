@@ -8,7 +8,7 @@ public class ExampleFactory {
 
     private ExampleFactory() {}
 
-    public List<Integer> getList(int typeCode) {
+    public static List<Integer> getList(int typeCode) {
         if (typeCode == 0) {
             return null;
         }
