@@ -1,4 +1,5 @@
 // reference: https://www.vogella.com/tutorials/JavaRegularExpressions/article.html
+// oracle regex javadoc
 
 package RegularExpressions;
 
@@ -75,6 +76,10 @@ public class RegularExpressions {
         ////////////////
         // Quantifier //
         ////////////////
+
+        // TODO: look to Ryo's Java Basic about regex
+        // TODO: reluctant vs. greedy ?
+        // TODO: possessive
 
         // * Occurs zero or more time, eg X* Finds no or several letter X; eg .* finds any character sequence
         //print(TAG_QUANTIFIER, "q*");
