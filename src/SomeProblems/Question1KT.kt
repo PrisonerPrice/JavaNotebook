@@ -10,7 +10,6 @@ object Solution {
 
     fun print(n: Int) {
         val stack = ArrayDeque<LinkedList<Int>>()
-        var digit = 6
         var remainder = n
         var minus = 1000000
         while (minus > 0) {
@@ -19,7 +18,6 @@ object Solution {
                 curr.add(minus)
                 remainder -= minus
             }
-            digit--
             if (!curr.isEmpty()) stack.push(curr)
             minus /= 10
         }
@@ -45,14 +43,14 @@ object Solution {
         }
         val result = StringBuilder()
         var count = 0
-        while (!stack.isEmpty()) {
-            val curr = stack.pop()
-            count += curr.size
-            for (x in curr.size - 1 downTo 0) {
-                result.append(curr[x])
-                result.append(" ")
-            }
+
+        val curr = stack.pop()
+        count += curr.size
+        for (x in curr.size - 1 downTo 0) {
+            result.append(curr[x])
+            result.append(" ")
         }
+
         println(count)
         println(result.toString().trim())
     }
