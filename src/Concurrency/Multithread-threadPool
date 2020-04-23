@@ -1,0 +1,34 @@
+Why using multi-thread?
+    better utilization of CPU(s)
+    Better user experience with responsiveness
+
+main() method runs on main thread
+
+Thread.currentThread().getName();
+
+How do you start a new thread?
+   Interface is preferred. Java does not support multi-inheritance
+
+How do you handle concurrency in your work? Thread Safety
+   synchronized: only one thread can enter
+   Use thread safe Java class: AtomicInteger, etc
+   Immutable Data, thread can only read data, but cannot modify it
+   eg.
+   public class ImmutableCounter {
+       private final int counter;
+       ImmutableCounter(int counter) {
+           this.counter = counter;
+       }
+       public int getCounter() {
+           return counter;
+       }
+   }
+
+Why use thread pool?
+   Reuse threads, java thread expensive 1-2MB/ thread
+
+Thread Management -- Executor
+   1. Create a task(Runnable Object) to execute
+   2. Create Executor Pool using Executors
+   3. Pass tasks to Executor Pool
+   4. Shutdown the Executor Pool
