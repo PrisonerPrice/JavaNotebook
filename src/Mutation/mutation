@@ -1,0 +1,21 @@
+final keyword on attribute / class
+
+functional programming -- threading
+// using final
+
+variables in lambda always are final
+
+String pool
+String a = "z3", b = "z3";
+    assertTrue(a==b)    // true
+String a = new String("a"), b = new String("a");
+    assertTrue(a==b)    // false
+    assertEqual(a, b)   // true
+
+StringBuilder
+.append()
+.toString()
+
+StringBuffer: thread safe
+
+Design patter: flightWeight Factory -- string pool
