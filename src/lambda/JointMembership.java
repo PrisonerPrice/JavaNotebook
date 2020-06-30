@@ -1,5 +1,8 @@
 package lambda;
 
+import com.sun.tools.internal.xjc.model.CElement;
+
+import javax.xml.bind.Element;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +39,8 @@ public class JointMembership {
         System.out.println(res2);
 
         // 3, all elements present in either list, but discarding duplicates
-        Set<Integer> res3 = setA.stream().filter(setB::contains).collect(Collectors.toSet());
+        Set<Integer> res3 = new HashSet<>(setA);
+        setB.forEach(element -> res3.add(element));
         System.out.println(res3);
 
     }
