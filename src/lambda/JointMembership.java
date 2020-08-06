@@ -1,8 +1,5 @@
 package lambda;
 
-import com.sun.tools.internal.xjc.model.CElement;
-
-import javax.xml.bind.Element;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
