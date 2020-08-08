@@ -39,53 +39,45 @@ public class LC146 {
         }
     }
 
-    // hashMap + hashMap of nodes
+    // hashMap of nodes + doubleLinkedList
     class LRUCache2{
         private int capacity;
-        private Map<Integer, Integer> keyValueMap; // <key, value>
-        private Map<Integer, Node> nodeMap; // <key, node>
+        private Map<Integer, Node> nodeMap; // <key, node<key, value>>
         private Node head;
         private Node tail;
 
-        /*
-        head -- newestNode -- someNodes -- oldestNode -- tail
-         */
         public LRUCache2(int capacity) {
             this.capacity = capacity;
-            keyValueMap = new HashMap<>();
             nodeMap = new HashMap<>();
-            head = new Node(-1);
-            tail = new Node(-1);
+            head = new Node(-1, -1);
+            tail = new Node(-1, -1);
             head.next = tail;
             tail.prev = head;
         }
 
         public int get(int key) {
-            if (!keyValueMap.containsKey(key)) {
+            if (!nodeMap.containsKey(key)) {
                 return -1;
             }
-            Node updatedNode = nodeMap.get(key);
-            removeANode(updatedNode);
-            addToHead(updatedNode);
-            return keyValueMap.get(key);
+            Node curr = nodeMap.get(key);
+            removeANode(curr);
+            addToHead(curr);
+            return curr.val;
         }
 
         public void put(int key, int value) {
-            if (!keyValueMap.containsKey(key)) {
-                if (keyValueMap.size() == capacity) {
-                    int removedKey = removeLast();
-                    keyValueMap.remove(removedKey);
-                    nodeMap.remove(removedKey);
+            if (!nodeMap.containsKey(key)) {
+                if (nodeMap.size() == capacity) {
+                    nodeMap.remove(removeLast());
                 }
-                Node insertedNode = new Node(key);
-                keyValueMap.put(key, value);
-                nodeMap.put(key, insertedNode);
-                addToHead(insertedNode);
+                Node curr = new Node(key, value);
+                nodeMap.put(key, curr);
+                addToHead(curr);
             } else {
-                Node updatedNode = nodeMap.get(key);
-                keyValueMap.put(key, value);
-                removeANode(updatedNode);
-                addToHead(updatedNode);
+                Node curr = nodeMap.get(key);
+                curr.val = value;
+                removeANode(curr);
+                addToHead(curr);
             }
         }
 
@@ -109,14 +101,16 @@ public class LC146 {
             Node prev = last.prev;
             prev.next = tail;
             tail.prev = prev;
-            return last.val;
+            return last.key;
         }
 
         class Node{
             Node prev;
             Node next;
+            int key;
             int val;
-            public Node(int val) {
+            public Node(int key, int val) {
+                this.key = key;
                 this.val = val;
             }
         }
