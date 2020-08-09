@@ -21,8 +21,8 @@ public class LC460 {
     }
 
     public int get(int key) {
-        // if no value match, returns -1
-        if (!keyValueMap.containsKey(key))
+        // if no value match or capacity is 0, returns -1
+        if (!keyValueMap.containsKey(key) || capacity == 0)
             return -1;
 
         // get the curr freq of the given key
@@ -33,8 +33,9 @@ public class LC460 {
         lowerFreqLRUCache.remove(key);
 
         // if this level's size == 0 and this level's freq == minFreq, minFreq++
-        if (freq == minFreq && lowerFreqLRUCache.size() == 0)
+        if (freq == minFreq && lowerFreqLRUCache.size() == 0) {
             minFreq++;
+        }
 
         // go to next level freq-lruCache
         freq++;
@@ -42,12 +43,15 @@ public class LC460 {
 
         // put key here and update the freq for this key
         higherFreqLRUCache.put(key);
+        lruMap.put(freq, higherFreqLRUCache);
         keyFreqMap.put(key, freq);
         return keyValueMap.get(key);
     }
 
-    // put operation will always
     public void put(int key, int value) {
+        // if capacity is 0, do nothing
+        if (capacity == 0)
+            return;
         // because of we are putting something new, minFreq will be set to 1
         if (!keyValueMap.containsKey(key)) {
             // LFU is full, need to do evict
@@ -75,7 +79,9 @@ public class LC460 {
 
             // remove curr key from the given freq-lruCache
             ModifiedLRUCache lowerFreqLRUCache = lruMap.get(freq);
+            //System.out.println("Before removing: " + lruMap.toString());
             lowerFreqLRUCache.remove(key);
+            //System.out.println("After removing: " + lruMap.toString());
 
             // if this level's size == 0 and this level's freq == minFreq, minFreq++
             if (freq == minFreq && lowerFreqLRUCache.size() == 0)
@@ -87,6 +93,7 @@ public class LC460 {
 
             // put key here and update the freq for this key
             higherFreqLRUCache.put(key);
+            lruMap.put(freq, higherFreqLRUCache);
             keyFreqMap.put(key, freq);
         }
     }
@@ -140,6 +147,7 @@ public class LC460 {
             Node prev = last.prev;
             prev.next = tail;
             tail.prev = prev;
+            nodeMap.remove(last.key);
             return last.key;
         }
 
@@ -147,10 +155,21 @@ public class LC460 {
             Node prev;
             Node next;
             int key;
-
             public Node(int key) {
                 this.key = key;
             }
+        }
+
+        @Override
+        public String toString() {
+            String returnString = "[Head], ";
+            Node node = head.next;
+            while (node != tail) {
+                returnString += "[" + node.key + "], ";
+                node = node.next;
+            }
+            returnString += "[Tail]";
+            return returnString;
         }
     }
 }
